@@ -5,6 +5,33 @@ if ($method === 'POST') {
     $city = $_POST['search'];
     $weather = getWeather($city);
     $cityInfo = getCityInfo($city);
+    $allInfo = new allCityInfo($weather->weather['0']->description, $weather->main->temp_min, $weather->main->temp_max, $weather->wind->speed, $cityInfo->country->name, $cityInfo->population, $cityInfo->elevation, $cityInfo->timezoneId);
+    echo json_encode($allInfo);
+}
+
+
+class allCityInfo
+{
+    public $overcast;
+    public $minTemp;
+    public $maxTemp;
+    public $windSpeed;
+    public $country;
+    public $population;
+    public $elevation;
+    public $timezone;
+
+    public function __construct($overcast, $minTemp, $maxTemp, $windSpeed, $country, $population, $elevation, $timezone)
+    {
+        $this->overcast = $overcast;
+        $this->minTemp = $minTemp;
+        $this->maxTemp = $maxTemp;
+        $this->windSpeed = $windSpeed;
+        $this->country = $country;
+        $this->population = $population;
+        $this->elevation = $elevation;
+        $this->timezone = $timezone;
+    }
 }
 
 
